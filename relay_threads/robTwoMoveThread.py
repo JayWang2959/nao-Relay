@@ -24,7 +24,7 @@ class RobOneMoveThread(Thread):
                                 self.__robot_conf['basic_param']['ip'],
                                 self.__robot_conf['basic_param']['port'])
 
-        self.__posture = ALProxy("ALPosture",
+        self.__posture = ALProxy("ALRobotPosture",
                                  self.__robot_conf['basic_param']['ip'],
                                  self.__robot_conf['basic_param']['port'])
 
@@ -38,7 +38,7 @@ class RobOneMoveThread(Thread):
 
         while True:
             # wake up robot
-            self.__motion.wakeup()
+            self.__motion.wakeUp()
             self.__posture.goToPosture("StandInit", 0.5)
 
             if not self.__vision_move_queue.empty():

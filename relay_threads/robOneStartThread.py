@@ -7,11 +7,12 @@ from naoqi import ALProxy
 
 
 class RobOneStartThread(Thread):
-    def __init__(self, robot_conf, start_move_queue):
+    def __init__(self, robot_conf, start_move_queue, start_vision_queue):
         super(self.__class__, self).__init__()
 
         self.__robot_conf = robot_conf
         self.__start_move_queue = start_move_queue
+        self.__start_vision_queue = start_vision_queue
 
         self.__touch = ALProxy("ALTouch",
                                self.__robot_conf['basic_param']['ip'],
@@ -23,5 +24,6 @@ class RobOneStartThread(Thread):
             for e in status:
                 if e[0] == 'Head' and e[1]:
                     self.__start_move_queue.put('start')
+                    self.__start_vision_queue.put('start')
                     break
 

@@ -24,7 +24,7 @@ class RobOneMoveThread(Thread):
                                 self.__robot_conf['basic_param']['ip'],
                                 self.__robot_conf['basic_param']['port'])
 
-        self.__posture = ALProxy("ALPosture",
+        self.__posture = ALProxy("ALRobotPosture",
                                  self.__robot_conf['basic_param']['ip'],
                                  self.__robot_conf['basic_param']['port'])
 
@@ -33,12 +33,13 @@ class RobOneMoveThread(Thread):
         while True:
             if not self.__start_move_queue.empty():
                 msg = self.__start_move_queue.get()
+                print 'move_queue_msg:', msg
                 if msg == 'start':
                     break
 
         while True:
             # wake up robot
-            self.__motion.wakeup()
+            self.__motion.wakeUp()
             self.__posture.goToPosture("StandInit", 0.5)
 
             if not self.__vision_move_queue.empty():
@@ -59,7 +60,10 @@ class RobOneMoveThread(Thread):
                                          self.__robot_conf['motion_param']['forward']['theta'],
                                          self.__robot_conf['motion_param']['forward']['config'])
                 if msg == 'stop':           # 停
+                    #todo stop 时间缓冲
                     self.__motion.stopMove()
                     # todo 发送tcp给二号机器人
                     self.__motion.rest()
                     break
+
+

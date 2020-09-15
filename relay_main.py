@@ -25,7 +25,7 @@ def main():
     r2_vision_move_queue = Queue(maxsize=1000)
 
     # 1号机器人等待出发线程
-    r1start = RobOneStartThread(robot1_conf, r1_start_move_queue)
+    r1start = RobOneStartThread(robot1_conf, r1_start_move_queue, r1_start_vision_queue)
     r1start.start()
     # 1号机器人运动线程
     r1motion = RobOneMoveThread(robot1_conf, r1_start_move_queue, r1_vision_move_queue)
