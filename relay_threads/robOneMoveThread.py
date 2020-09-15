@@ -2,6 +2,8 @@
 """
 机器人1号的运动线程
 """
+# todo 整合1、2号机器人的运动线程类，提取公共模块作父类继承
+
 from threading import Thread
 from naoqi import ALProxy
 
