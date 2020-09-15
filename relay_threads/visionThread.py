@@ -3,6 +3,7 @@
 机器人视觉线程
 """
 from threading import Thread
+from naoqi import ALProxy
 
 
 class VisionThread(Thread):
@@ -13,9 +14,14 @@ class VisionThread(Thread):
         self.__start_vision_queue = start_vision_queue
         self.__vision_move_queue = vision_move_queue
 
+        self.__vision = ALProxy("ALVideoDevice",
+                                self.__robot_conf['basic']['param']['ip'],
+                                self.__robot_conf['basic']['param']['port'])
+
     def run(self):
         while True:
             if not self.__start_vision_queue.empty():
                 msg = self.__start_vision_queue.get()
                 if msg == 'start':
                     break
+
