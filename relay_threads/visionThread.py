@@ -58,7 +58,7 @@ class VisionThread(Thread):
 
         # 检测霍夫线
         # lines = cv2.HoughLines(imcan, 1, np.pi / 180, 150)                # 标准霍夫线变换
-        lines = cv2.HoughLinesP(imcan, 1, np.pi / 180, 50, minLineLength=150, maxLineGap=10)
+        lines = cv2.HoughLinesP(imcan, 1, np.pi / 180, 50, minLineLength=150, maxLineGap=10)    # 统计霍夫变换
         # self.draw_lines(lines, image)
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
@@ -69,22 +69,22 @@ class VisionThread(Thread):
             cmd = 'forward'
         else:
             line = lines[0]
-            print 'line：  ' ,line
+            print 'line：  ', line
             # for line in lines:
             x1, y1, x2, y2 = line[0]
-            slope =(y1 - y2) / (x1 - x2)
+            slope = (y1 - y2) / (x1 - x2)
             print "slope:", slope
             theta = np.arctan(slope)
             degrees_theta = np.degrees(theta)
             print '弧度制单位：', theta
             print '角度制单位：', degrees_theta
-            if -90<=degrees_theta<=-45 or 45<=degrees_theta<=90:
+            if -90 <= degrees_theta <= -45 or 45 <= degrees_theta <= 90:
                 cmd = 'forward'
-            elif 10<=degrees_theta<45:
+            elif 10 <= degrees_theta < 45:
                 cmd = 'left'
-            elif -45<degrees_theta<=-10:
+            elif -45 < degrees_theta <= -10:
                 cmd = 'right'
-            elif -10<=degrees_theta<=10:
+            elif -10 <= degrees_theta <= 10:
                 cmd = 'stop'
             else:
                 cmd = 'forward'
@@ -93,8 +93,7 @@ class VisionThread(Thread):
     def draw_lines(self, lines, image):
         for line in lines:
             x1, y1, x2, y2 = line[0]
-            cv2.line(image, (x1,y1),(x2,y2), (0, 0, 255), 2)
-
+            cv2.line(image, (x1, y1), (x2, y2), (0, 0, 255), 2)
 
         cv2.imshow("img", image)
 
@@ -102,7 +101,7 @@ class VisionThread(Thread):
         while True:
             if not self.__start_vision_queue.empty():
                 msg = self.__start_vision_queue.get()
-                print 'vision_queue_msg :' ,msg
+                print 'vision_queue_msg :', msg
                 if msg == 'start':
                     break
 
@@ -116,7 +115,6 @@ class VisionThread(Thread):
             if cmd == 'stop':
                 self.__vision.unsubscribe(self.camera_botton)
                 break
-
 
 
 if __name__ == '__main__':

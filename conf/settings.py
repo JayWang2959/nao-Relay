@@ -10,7 +10,7 @@ robot1_conf = {                                         # 1号机器人参数
     },
     'motion_param': {                                   # 运动参数
         'forward': {                                    # 前进
-            'x': 0.5,
+            'x': 1,
             'y': 0,
             'theta': 0,
             'config': [
@@ -24,9 +24,9 @@ robot1_conf = {                                         # 1号机器人参数
             ]
         },
         'left': {                                       # 左转
-            'x': 0.8,
+            'x': 0,
             'y': 0,
-            'theta': 0.4,
+            'theta': 0.5,
             'config': [
                 ["MaxStepFrequency", 0.2],
                 ["MaxStepTheta", 0.0005],
@@ -38,9 +38,9 @@ robot1_conf = {                                         # 1号机器人参数
             ]
         },
         'right': {                                      # 右转
-            'x': 0.8,
+            'x': 0,
             'y': 0,
-            'theta': -0.4,
+            'theta': -0.5,
             'config': [
                 ["MaxStepFrequency", 0.2],
                 ["MaxStepTheta", 0.0005],
