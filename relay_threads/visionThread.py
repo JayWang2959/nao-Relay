@@ -72,22 +72,25 @@ class VisionThread(Thread):
             print 'line：  ', line
             # for line in lines:
             x1, y1, x2, y2 = line[0]
-            slope = (y1 - y2) / (x1 - x2)
-            print "slope:", slope
-            theta = np.arctan(slope)
-            degrees_theta = np.degrees(theta)
-            print '弧度制单位：', theta
-            print '角度制单位：', degrees_theta
-            if -90 <= degrees_theta <= -45 or 45 <= degrees_theta <= 90:
+            if x1 == x2:
                 cmd = 'forward'
-            elif 10 <= degrees_theta < 45:
-                cmd = 'left'
-            elif -45 < degrees_theta <= -10:
-                cmd = 'right'
-            elif -10 <= degrees_theta <= 10:
-                cmd = 'stop'
             else:
-                cmd = 'forward'
+                slope = (y1 - y2) / (x1 - x2)
+                print "slope:", slope
+                theta = np.arctan(slope)
+                degrees_theta = np.degrees(theta)
+                print '弧度制单位：', theta
+                print '角度制单位：', degrees_theta
+                if -90 <= degrees_theta <= -45 or 45 <= degrees_theta <= 90:
+                    cmd = 'forward'
+                elif 10 <= degrees_theta < 45:
+                    cmd = 'left'
+                elif -45 < degrees_theta <= -10:
+                    cmd = 'right'
+                elif -10 <= degrees_theta <= 10:
+                    cmd = 'stop'
+                else:
+                    cmd = 'forward'
         return cmd
 
     def draw_lines(self, lines, image):
