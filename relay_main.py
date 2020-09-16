@@ -9,7 +9,6 @@ from naoqi import ALProxy
 from conf import robot1_conf
 from conf import robot2_conf
 
-from relay_threads import MoveThread
 from relay_threads import RobOneStartThread
 
 
