@@ -7,7 +7,7 @@ from relay_threads import MoveThread
 
 class RobTwoMoveThread(MoveThread):
     def __init__(self, robot_conf, start_move_queue, vision_move_queue):
-        super(self.__class__, self).__init__(robot_conf, start_move_queue, vision_move_queue)
+        super(RobTwoMoveThread, self).__init__(robot_conf, start_move_queue, vision_move_queue)
 
     def run(self):
         self.wait_to_start()

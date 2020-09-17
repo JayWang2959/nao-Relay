@@ -4,23 +4,23 @@
 """
 
 from threading import Thread
-from naoqi import ALProxy
+# from naoqi import ALProxy
 import socket
-import qi
-import time
+# import qi
+# import time
 
 
 class RobTwoStartThread(Thread):
     def __init__(self, robot_conf, start_move_queue, start_vision_queue):
-        super(self.__class__, self).__init__()
+        super(RobTwoStartThread, self).__init__()
 
         self.__robot_conf = robot_conf
         self.__start_move_queue = start_move_queue
         self.__start_vision_queue = start_vision_queue
 
-        self.__Audio = ALProxy("ALAudioDevice",
-                               self.__robot_conf['basic_param']['ip'],
-                               self.__robot_conf['basic_param']['port'])
+        # self.__Audio = ALProxy("ALAudioDevice",
+        #                        self.__robot_conf['basic_param']['ip'],
+        #                        self.__robot_conf['basic_param']['port'])
 
     def run(self):
         while True:
@@ -39,3 +39,4 @@ class RobTwoStartThread(Thread):
             conn.close()
             self.__start_move_queue.put('start')
             self.__start_vision_queue.put('start')
+            break

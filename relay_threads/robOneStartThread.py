@@ -8,7 +8,7 @@ from naoqi import ALProxy
 
 class RobOneStartThread(Thread):
     def __init__(self, robot_conf, start_move_queue, start_vision_queue):
-        super(self.__class__, self).__init__()
+        super(RobOneStartThread, self).__init__()
 
         self.__robot_conf = robot_conf
         self.__start_move_queue = start_move_queue
