@@ -15,3 +15,10 @@ class RobOneMoveThread(MoveThread):
         # todo 发送tcp给2号机器人
 
 
+# if __name__ == '__main__':
+#     from conf import robot1_conf
+#     from Queue import Queue
+#     queue1 = Queue()
+#     queue2 = Queue()
+#
+#     robonemove = RobOneMoveThread(robot1_conf, queue1, queue2)
