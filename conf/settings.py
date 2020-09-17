@@ -5,7 +5,7 @@
 
 robot1_conf = {                                         # 1号机器人参数
     'basic_param': {                                    # 基础参数
-        'ip': '192.168.43.250',
+        'ip': '172.20.10.8',
         'port': 9559,
     },
     'motion_param': {                                   # 运动参数
@@ -14,39 +14,39 @@ robot1_conf = {                                         # 1号机器人参数
             'y': 0,
             'theta': 0,
             'config': [
-                ["MaxStepFrequency", 0.2],
-                ["MaxStepTheta", 0.0005],
-                ["MaxStepX", 0.02],
-                ["MaxStepY", 0.101],
-                ["StepHeight", 0.005],
+                ["MaxStepFrequency", 0.8],
+                ["MaxStepTheta", 0.4],
+                ["MaxStepX", 0.05],
+                ["MaxStepY", 0.2],
+                ["StepHeight", 0.01],
                 ["TorsoWx", 0],
                 ["TorsoWy", 0]
             ]
         },
         'left': {                                       # 左转
-            'x': 0,
+            'x': 0.8,
             'y': 0,
-            'theta': 0.5,
+            'theta': 0.05,
             'config': [
-                ["MaxStepFrequency", 0.2],
-                ["MaxStepTheta", 0.0005],
-                ["MaxStepX", 0.02],
-                ["MaxStepY", 0.101],
-                ["StepHeight", 0.005],
+                ["MaxStepFrequency", 0.8],
+                ["MaxStepTheta", 0.4],
+                ["MaxStepX", 0.05],
+                ["MaxStepY", 0.2],
+                ["StepHeight", 0.01],
                 ["TorsoWx", 0],
                 ["TorsoWy", 0]
             ]
         },
         'right': {                                      # 右转
-            'x': 0,
+            'x': 0.8,
             'y': 0,
-            'theta': -0.5,
+            'theta': -0.1,
             'config': [
-                ["MaxStepFrequency", 0.2],
-                ["MaxStepTheta", 0.0005],
-                ["MaxStepX", 0.02],
-                ["MaxStepY", 0.101],
-                ["StepHeight", 0.005],
+                ["MaxStepFrequency", 0.8],
+                ["MaxStepTheta", 0.4],
+                ["MaxStepX", 0.05],
+                ["MaxStepY", 0.2],
+                ["StepHeight", 0.01],
                 ["TorsoWx", 0],
                 ["TorsoWy", 0]
             ]
