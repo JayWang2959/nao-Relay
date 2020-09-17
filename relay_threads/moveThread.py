@@ -18,13 +18,13 @@ class MoveThread(Thread):
         #                         robot_conf['basic_param']['ip'],
         #                         robot_conf['basic_param']['port'])
 
-        self.__motion = ALProxy("ALMotion",
-                                self.__robot_conf['basic_param']['ip'],
-                                self.__robot_conf['basic_param']['port'])
-
-        self.__posture = ALProxy("ALRobotPosture",
-                                 self.__robot_conf['basic_param']['ip'],
-                                 self.__robot_conf['basic_param']['port'])
+        # self.__motion = ALProxy("ALMotion",
+        #                         self.__robot_conf['basic_param']['ip'],
+        #                         self.__robot_conf['basic_param']['port'])
+        #
+        # self.__posture = ALProxy("ALRobotPosture",
+        #                          self.__robot_conf['basic_param']['ip'],
+        #                          self.__robot_conf['basic_param']['port'])
 
     def wait_to_start(self):
         # 等待开始线程发来出发指令
@@ -33,6 +33,7 @@ class MoveThread(Thread):
                 msg = self.__start_move_queue.get()
                 print 'move_queue_msg:', msg
                 if msg == 'start':
+                    print 'start_move_queue received:', msg
                     break
 
     def move(self):

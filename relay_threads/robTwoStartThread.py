@@ -4,7 +4,7 @@
 """
 
 from threading import Thread
-# from naoqi import ALProxy
+from naoqi import ALProxy
 import socket
 # import qi
 # import time
@@ -18,16 +18,15 @@ class RobTwoStartThread(Thread):
         self.__start_move_queue = start_move_queue
         self.__start_vision_queue = start_vision_queue
 
-        # self.__Audio = ALProxy("ALAudioDevice",
-        #                        self.__robot_conf['basic_param']['ip'],
-        #                        self.__robot_conf['basic_param']['port'])
+        self.__Audio = ALProxy("ALAudioDevice",
+                               self.__robot_conf['basic_param']['ip'],
+                               self.__robot_conf['basic_param']['port'])
 
     def run(self):
         while True:
-            HOST = '127.0.0.1'  # Symbolic name meaning all available interfaces
-            PORT = 50007  # Arbitrary non-privileged port
             s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            s.bind((HOST, PORT))
+            s.bind((self.__robot_conf['tcp']['host'],
+                    self.__robot_conf['tcp']['port']))
             s.listen(1)
             conn, addr = s.accept()
             print('Connected by', addr)
@@ -40,3 +39,14 @@ class RobTwoStartThread(Thread):
             self.__start_move_queue.put('start')
             self.__start_vision_queue.put('start')
             break
+
+
+# if __name__ == '__main__':
+#     from conf import robot1_conf
+#     from Queue import Queue
+#     queue1 = Queue()
+#     queue2 = Queue()
+#
+#     rob2start = RobTwoStartThread(robot1_conf, queue1, queue2)
+#     rob2start.start()
+#     rob2start.join()

@@ -104,8 +104,8 @@ class VisionThread(Thread):
         while True:
             if not self.__start_vision_queue.empty():
                 msg = self.__start_vision_queue.get()
-                print 'vision_queue_msg :', msg
                 if msg == 'start':
+                    print 'vision_queue_msg :', msg
                     break
 
         while True:
