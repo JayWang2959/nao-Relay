@@ -6,8 +6,6 @@
 from threading import Thread
 from naoqi import ALProxy
 import socket
-# import qi
-# import time
 
 
 class RobTwoStartThread(Thread):

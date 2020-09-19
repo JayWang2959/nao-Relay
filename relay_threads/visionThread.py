@@ -9,6 +9,7 @@ import cv2
 import numpy as np
 import time
 
+
 class VisionThread(Thread):
     def __init__(self, robot_conf, start_vision_queue, vision_move_queue):
         super(VisionThread, self).__init__()
@@ -113,8 +114,13 @@ class VisionThread(Thread):
             image = self.__vision.getImageRemote(self.camera_botton)
             lines = self.image_houghlines(image)
             cmd = self.direction_recognition(lines)
-            print cmd
-            self.__vision_move_queue.put(cmd)
+            # 队列里只放一条指令，减少延时指令的堆积
+            if self.__vision_move_queue.qsize() == 1:
+                self.__vision_move_queue.get()
+                self.__vision_move_queue.put(cmd)
+            else:
+                self.__vision_move_queue.put(cmd)
+
             # 判断停止后，断开摄像头订阅
             if cmd == 'stop':
                 self.__vision.unsubscribe(self.camera_botton)
