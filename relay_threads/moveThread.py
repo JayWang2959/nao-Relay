@@ -71,7 +71,10 @@ class MoveThread(Thread):
                 if msg == 'stop':           # 停
                     # stop 时间缓冲
                     self.__audio.say('快了，我看见了，我要冲刺了')
-                    self.__motion.moveToward(0.8, 0, 0, self.__robot_conf['motion_param']['forward']['config'])
+                    self.__motion.moveToward(self.__robot_conf['motion_param']['final']['x'],
+                                             self.__robot_conf['motion_param']['final']['y'],
+                                             self.__robot_conf['motion_param']['final']['theta'],
+                                             self.__robot_conf['motion_param']['final']['config'])
                     time.sleep(24)
 
                     self.__motion.stopMove()

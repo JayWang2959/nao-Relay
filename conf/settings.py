@@ -50,6 +50,20 @@ robot1_conf = {                                         # 1号机器人参数
                 ["TorsoWx", 0],
                 ["TorsoWy", 0]
             ]
+        },
+        'final': {                                      # 右转
+            'x': 0.8,
+            'y': 0,
+            'theta': -0.035,
+            'config': [
+                ["MaxStepFrequency", 0.45],
+                ["MaxStepTheta", 0.4],
+                ["MaxStepX", 0.03],
+                ["MaxStepY", 0.05],
+                ["StepHeight", 0.02],
+                ["TorsoWx", 0],
+                ["TorsoWy", 0]
+            ]
         }
     },
     'tcp': {

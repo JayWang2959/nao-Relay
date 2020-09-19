@@ -82,11 +82,11 @@ class VisionThread(Thread):
                 degrees_theta = np.degrees(theta)
                 print '弧度制单位：', theta
                 print '角度制单位：', degrees_theta
-                if -90 <= degrees_theta <= -60 or 45 <= degrees_theta <= 90:
+                if -90 <= degrees_theta <= -50 or 45 <= degrees_theta <= 90:
                     cmd = 'forward'
                 elif 10 <= degrees_theta < 45:
                     cmd = 'left'
-                elif -60 < degrees_theta <= -10:
+                elif -50 < degrees_theta <= -10:
                     cmd = 'right'
                 elif -10 <= degrees_theta <= 10:
                     cmd = 'stop'
