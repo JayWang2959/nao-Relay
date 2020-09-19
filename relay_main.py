@@ -11,8 +11,8 @@ from conf import robot2_conf
 
 from relay_threads import RobOneStartThread
 from relay_threads import RobOneMoveThread
-from relay_threads import RobTwoStartThread
-from relay_threads import RobTwoMoveThread
+# from relay_threads import RobTwoStartThread
+# from relay_threads import RobTwoMoveThread
 from relay_threads import VisionThread
 
 

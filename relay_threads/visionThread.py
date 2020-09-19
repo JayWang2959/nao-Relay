@@ -7,7 +7,7 @@ from threading import Thread
 from naoqi import ALProxy
 import cv2
 import numpy as np
-
+import time
 
 class VisionThread(Thread):
     def __init__(self, robot_conf, start_vision_queue, vision_move_queue):
@@ -75,17 +75,17 @@ class VisionThread(Thread):
             if x1 == x2:
                 cmd = 'forward'
             else:
-                slope = (y1 - y2) / (x1 - x2)
+                slope = (y1 - y2)*1.0 / (x1 - x2)
                 print "slope:", slope
                 theta = np.arctan(slope)
                 degrees_theta = np.degrees(theta)
                 print '弧度制单位：', theta
                 print '角度制单位：', degrees_theta
-                if -90 <= degrees_theta <= -45 or 45 <= degrees_theta <= 90:
+                if -90 <= degrees_theta <= -60 or 45 <= degrees_theta <= 90:
                     cmd = 'forward'
                 elif 10 <= degrees_theta < 45:
                     cmd = 'left'
-                elif -45 < degrees_theta <= -10:
+                elif -60 < degrees_theta <= -10:
                     cmd = 'right'
                 elif -10 <= degrees_theta <= 10:
                     cmd = 'stop'
@@ -109,6 +109,7 @@ class VisionThread(Thread):
                     break
 
         while True:
+            time.sleep(1)
             image = self.__vision.getImageRemote(self.camera_botton)
             lines = self.image_houghlines(image)
             cmd = self.direction_recognition(lines)

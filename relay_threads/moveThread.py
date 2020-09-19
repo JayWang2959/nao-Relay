@@ -4,6 +4,7 @@
 """
 from threading import Thread
 from naoqi import ALProxy
+import time
 
 
 class MoveThread(Thread):
@@ -18,13 +19,17 @@ class MoveThread(Thread):
         #                         robot_conf['basic_param']['ip'],
         #                         robot_conf['basic_param']['port'])
 
-        # self.__motion = ALProxy("ALMotion",
-        #                         self.__robot_conf['basic_param']['ip'],
-        #                         self.__robot_conf['basic_param']['port'])
-        #
-        # self.__posture = ALProxy("ALRobotPosture",
-        #                          self.__robot_conf['basic_param']['ip'],
-        #                          self.__robot_conf['basic_param']['port'])
+        self.__motion = ALProxy("ALMotion",
+                                self.__robot_conf['basic_param']['ip'],
+                                self.__robot_conf['basic_param']['port'])
+
+        self.__posture = ALProxy("ALRobotPosture",
+                                 self.__robot_conf['basic_param']['ip'],
+                                 self.__robot_conf['basic_param']['port'])
+
+        self.__audio = ALProxy("ALTextToSpeech",
+                               self.__robot_conf['basic_param']['ip'],
+                               self.__robot_conf['basic_param']['port'])
 
     def wait_to_start(self):
         # 等待开始线程发来出发指令
@@ -37,30 +42,45 @@ class MoveThread(Thread):
                     break
 
     def move(self):
-        while True:
-            # wake up robot
-            self.__motion.wakeUp()
-            self.__posture.goToPosture("StandInit", 0.5)
+        # wake up robot
+        self.__motion.wakeUp()
+        self.__posture.goToPosture("StandInit", 0.5)
+        # time.sleep(3)
 
+        while True:
             if not self.__vision_move_queue.empty():
                 msg = self.__vision_move_queue.get()
                 if msg == 'left':           # 左转
+                    self.__audio.say('左转')
                     self.__motion.moveToward(self.__robot_conf['motion_param']['left']['x'],
                                              self.__robot_conf['motion_param']['left']['y'],
                                              self.__robot_conf['motion_param']['left']['theta'],
                                              self.__robot_conf['motion_param']['left']['config'])
+                    # self.__motion.moveToward(self.__robot_conf['motion_param']['forward']['x'],
+                    #                          self.__robot_conf['motion_param']['forward']['y'],
+                    #                          self.__robot_conf['motion_param']['forward']['theta'],
+                    #                          self.__robot_conf['motion_param']['forward']['config'])
                 if msg == 'right':          # 右转
+                    self.__audio.say('右转')
                     self.__motion.moveToward(self.__robot_conf['motion_param']['right']['x'],
                                              self.__robot_conf['motion_param']['right']['y'],
                                              self.__robot_conf['motion_param']['right']['theta'],
                                              self.__robot_conf['motion_param']['right']['config'])
+                    # self.__motion.moveToward(self.__robot_conf['motion_param']['forward']['x'],
+                    #                          self.__robot_conf['motion_param']['forward']['y'],
+                    #                          self.__robot_conf['motion_param']['forward']['theta'],
+                    #                          self.__robot_conf['motion_param']['forward']['config'])
                 if msg == 'forward':        # 直行
+                    self.__audio.say('直行')
                     self.__motion.moveToward(self.__robot_conf['motion_param']['forward']['x'],
                                              self.__robot_conf['motion_param']['forward']['y'],
                                              self.__robot_conf['motion_param']['forward']['theta'],
                                              self.__robot_conf['motion_param']['forward']['config'])
                 if msg == 'stop':           # 停
+                    self.__audio.say('快了，我看见了，我要冲刺了')
                     #todo stop 时间缓冲
+                    self.__motion.moveToward(0.8, 0, 0, self.__robot_conf['motion_param']['forward']['config'])
+                    time.sleep(24)
                     self.__motion.stopMove()
                     self.__motion.rest()
                     break
