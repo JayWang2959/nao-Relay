@@ -22,7 +22,7 @@ class RobOneMoveThread(MoveThread):
     def run(self):
         self.wait_to_start()
         self.move()
-        # self.sendTcp()
+        self.sendTcp()
 
 
 # if __name__ == '__main__':

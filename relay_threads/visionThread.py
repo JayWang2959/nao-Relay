@@ -82,11 +82,11 @@ class VisionThread(Thread):
                 degrees_theta = np.degrees(theta)
                 print '弧度制单位：', theta
                 print '角度制单位：', degrees_theta
-                if -90 <= degrees_theta <= -50 or 45 <= degrees_theta <= 90:
+                if -90 <= degrees_theta <= -57 or 50 <= degrees_theta <= 90:
                     cmd = 'forward'
-                elif 10 <= degrees_theta < 45:
+                elif 10 <= degrees_theta < 50:
                     cmd = 'left'
-                elif -50 < degrees_theta <= -10:
+                elif -57 < degrees_theta <= -10:
                     cmd = 'right'
                 elif -10 <= degrees_theta <= 10:
                     cmd = 'stop'
@@ -110,7 +110,7 @@ class VisionThread(Thread):
                     break
 
         while True:
-            time.sleep(1)
+            time.sleep(1.2)
             image = self.__vision.getImageRemote(self.camera_botton)
             lines = self.image_houghlines(image)
             cmd = self.direction_recognition(lines)
@@ -120,6 +120,7 @@ class VisionThread(Thread):
                 self.__vision_move_queue.put(cmd)
             else:
                 self.__vision_move_queue.put(cmd)
+            print 'cmd', cmd
 
             # 判断停止后，断开摄像头订阅
             if cmd == 'stop':

@@ -16,9 +16,10 @@ class RobTwoStartThread(Thread):
         self.__start_move_queue = start_move_queue
         self.__start_vision_queue = start_vision_queue
 
-        self.__Audio = ALProxy("ALAudioDevice",
-                               self.__robot_conf['basic_param']['ip'],
-                               self.__robot_conf['basic_param']['port'])
+        # self.__Audio = ALProxy("ALTextToSpeech",
+        #                        self.__robot_conf['basic_param']['ip'],
+        #                        self.__robot_conf['basic_param']['port'])
+        #
 
     def run(self):
         while True:
@@ -37,6 +38,7 @@ class RobTwoStartThread(Thread):
             self.__start_move_queue.put('start')
             self.__start_vision_queue.put('start')
             break
+        print 'rob 2 received message'
 
 
 # if __name__ == '__main__':
